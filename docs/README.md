@@ -11,11 +11,12 @@ Welcome to the JavaCake framework documentation! JavaCake is a CakePHP-inspired 
 5. [Controllers](./controllers.md)
 6. [Models](./models.md)
 7. [Views](./views.md)
-8. [Database](./database.md)
-9. [Authentication](./authentication.md)
-10. [Helpers](./helpers.md)
-11. [Components](./components.md)
-12. [Best Practices](./best-practices.md)
+8. [Migrations](./migrations.md)
+9. [Database](./database.md)
+10. [Authentication](./authentication.md)
+11. [Helpers](./helpers.md)
+12. [Components](./components.md)
+13. [Best Practices](./best-practices.md)
 
 ## Quick Links
 

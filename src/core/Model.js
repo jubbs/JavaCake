@@ -336,7 +336,8 @@ class Model {
       }
 
       // Load the related model
-      const RelatedModel = require(`../../models/${assocName}`);
+      const Loader = require('./Loader');
+      const RelatedModel = Loader.getInstance().loadModel(assocName);
 
       if (assoc.type === 'belongsTo') {
         // Load parent records

@@ -5,15 +5,21 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const database = require('./Database');
 const Router = require('./Router');
+const Loader = require('./Loader');
 
 class Application {
   constructor(options = {}) {
     this.config = options.config || {};
     this.dbConfig = options.database || {};
     this.customRoutes = options.routes || null;
+    this.appPath = options.appPath || path.join(__dirname, '../..');
     this.app = null;
     this.router = null;
     this.server = null;
+
+    // Create and set the global Loader instance with the app path
+    const loader = new Loader(this.appPath);
+    Loader.setInstance(loader);
   }
 
   /**
@@ -85,12 +91,12 @@ class Application {
     }
 
     // Static files
-    const webrootPath = path.join(__dirname, '../../webroot');
+    const webrootPath = path.join(this.appPath, 'webroot');
     this.app.use(express.static(webrootPath));
 
     // Set EJS as view engine (for error pages)
     this.app.set('view engine', 'ejs');
-    this.app.set('views', path.join(__dirname, '../../src/views'));
+    this.app.set('views', path.join(this.appPath, 'src', 'views'));
 
     // Debug mode logging
     if (this.config.debug) {
@@ -125,7 +131,7 @@ class Application {
       res.status(404);
 
       if (req.accepts('html')) {
-        const errorView = path.join(__dirname, '../../src/views/errors/404.ejs');
+        const errorView = path.join(this.appPath, 'src', 'views', 'errors', '404.ejs');
         try {
           res.render(errorView, { url: req.url });
         } catch (error) {
@@ -162,7 +168,7 @@ class Application {
       } else {
         // Show generic error in production
         if (req.accepts('html')) {
-          const errorView = path.join(__dirname, '../../src/views/errors/500.ejs');
+          const errorView = path.join(this.appPath, 'src', 'views', 'errors', '500.ejs');
           try {
             res.render(errorView, { error: err });
           } catch (error) {

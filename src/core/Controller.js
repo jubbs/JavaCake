@@ -1,5 +1,6 @@
+const path = require('path');
 const View = require('./View');
-const loader = require('./Loader');
+const Loader = require('./Loader');
 
 class Controller {
   constructor(req, res) {
@@ -77,7 +78,9 @@ class Controller {
       }
 
       // Render view with layout
-      const viewRenderer = new View();
+      const loader = Loader.getInstance();
+      const viewsPath = path.join(loader.basePath, 'src', 'views');
+      const viewRenderer = new View(viewsPath);
       const html = await viewRenderer.render(view, viewData, this.layout);
 
       this.res.send(html);
@@ -157,7 +160,7 @@ class Controller {
       return this.components[name];
     }
 
-    const ComponentClass = loader.loadComponent(name);
+    const ComponentClass = Loader.getInstance().loadComponent(name);
 
     if (!ComponentClass) {
       throw new Error(`Component ${name} not found`);
@@ -184,7 +187,7 @@ class Controller {
    */
   _loadHelper(name) {
     try {
-      return loader.loadHelper(name);
+      return Loader.getInstance().loadHelper(name);
     } catch (error) {
       console.warn(`Helper ${name} not found:`, error.message);
       return {};
@@ -280,7 +283,7 @@ class Controller {
    * @returns {Class} Model class
    */
   loadModel(name) {
-    return loader.loadModel(name);
+    return Loader.getInstance().loadModel(name);
   }
 
   /**

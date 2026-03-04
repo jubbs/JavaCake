@@ -3,8 +3,8 @@ const path = require('path');
 const fs = require('fs');
 
 class View {
-  constructor() {
-    this.viewsPath = path.join(__dirname, '../../src/views');
+  constructor(viewsPath) {
+    this.viewsPath = viewsPath || path.join(__dirname, '../../src/views');
     this.layoutsPath = path.join(this.viewsPath, 'layouts');
     this.cache = {};
   }

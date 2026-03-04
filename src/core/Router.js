@@ -1,4 +1,4 @@
-const loader = require('./Loader');
+const Loader = require('./Loader');
 
 class Router {
   constructor() {
@@ -95,7 +95,7 @@ class Router {
       controllerName = `${controllerName}Controller`;
     }
 
-    return loader.loadController(controllerName);
+    return Loader.getInstance().loadController(controllerName);
   }
 
   /**

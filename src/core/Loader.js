@@ -1,15 +1,37 @@
 const path = require('path');
 const fs = require('fs');
 
+// Module-level instance for global access
+let _instance = null;
+
 class Loader {
-  constructor() {
+  constructor(basePath) {
     this.cache = {
       controllers: {},
       models: {},
       components: {},
       helpers: {}
     };
-    this.basePath = path.join(__dirname, '../..');
+    this.basePath = basePath || path.join(__dirname, '../..');
+  }
+
+  /**
+   * Set the global Loader instance
+   * @param {Loader} instance - Loader instance
+   */
+  static setInstance(instance) {
+    _instance = instance;
+  }
+
+  /**
+   * Get the global Loader instance
+   * @returns {Loader} Loader instance
+   */
+  static getInstance() {
+    if (!_instance) {
+      _instance = new Loader();
+    }
+    return _instance;
   }
 
   /**
@@ -269,7 +291,4 @@ class Loader {
   }
 }
 
-// Singleton instance
-const loader = new Loader();
-
-module.exports = loader;
+module.exports = Loader;
