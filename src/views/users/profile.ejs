@@ -1,0 +1,43 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <h1>My Profile</h1>
+  </div>
+
+  <div class="profile-content">
+    <div class="profile-card">
+      <div class="profile-avatar">
+        <%- AuthHelper.userAvatar(session, { size: 100 }) %>
+      </div>
+
+      <div class="profile-info">
+        <h2><%= user.name %></h2>
+        <p class="text-muted">@<%= user.username %></p>
+
+        <div class="profile-details">
+          <div class="detail-item">
+            <strong>Email:</strong>
+            <span><%= user.email %></span>
+          </div>
+
+          <% if (user.role) { %>
+            <div class="detail-item">
+              <strong>Role:</strong>
+              <span class="badge badge-primary"><%= user.role %></span>
+            </div>
+          <% } %>
+
+          <% if (user.created_at) { %>
+            <div class="detail-item">
+              <strong>Member since:</strong>
+              <span><%= new Date(user.created_at).toLocaleDateString() %></span>
+            </div>
+          <% } %>
+        </div>
+
+        <div class="profile-actions">
+          <%- HtmlHelper.link('Edit Profile', '/users/edit', { class: 'btn btn-primary' }) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

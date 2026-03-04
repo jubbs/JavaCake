@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title + ' - ' : '' %>JavaCake</title>
+  <%- HtmlHelper.css('/css/style') %>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <%- HtmlHelper.link('JavaCake', '/', { class: 'brand-link' }) %>
+      </div>
+      <div class="nav-menu">
+        <% if (typeof session !== 'undefined' && AuthHelper.isLoggedIn(session)) { %>
+          <span class="welcome">Welcome, <%= AuthHelper.userName(session) %>!</span>
+          <%- HtmlHelper.link('Profile', '/users/profile', { class: 'nav-link' }) %>
+          <%- HtmlHelper.link('Logout', '/users/logout', { class: 'nav-link' }) %>
+        <% } else { %>
+          <%- HtmlHelper.link('Login', '/users/login', { class: 'nav-link' }) %>
+          <%- HtmlHelper.link('Register', '/users/register', { class: 'nav-link' }) %>
+        <% } %>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <% if (typeof flash !== 'undefined' && flash.length > 0) { %>
+      <div class="flash-messages">
+        <% flash.forEach(function(message) { %>
+          <div class="alert alert-<%= message.type %>">
+            <%= message.message %>
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+
+    <%- content %>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 JavaCake Framework. Built with Node.js and love.</p>
+    </div>
+  </footer>
+
+  <%- HtmlHelper.script('/js/app') %>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Page Not Found</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    .error-container {
+      text-align: center;
+      padding: 2rem;
+    }
+    .error-code {
+      font-size: 8rem;
+      font-weight: bold;
+      margin: 0;
+      line-height: 1;
+    }
+    .error-message {
+      font-size: 2rem;
+      margin: 1rem 0;
+    }
+    .error-description {
+      font-size: 1.2rem;
+      margin: 1rem 0;
+      opacity: 0.9;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      background: white;
+      color: #667eea;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: transform 0.2s;
+    }
+    .back-link:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="error-container">
+    <h1 class="error-code">404</h1>
+    <h2 class="error-message">Page Not Found</h2>
+    <p class="error-description">
+      The page you are looking for doesn't exist or has been moved.
+    </p>
+    <% if (typeof url !== 'undefined') { %>
+      <p class="error-description">Requested URL: <%= url %></p>
+    <% } %>
+    <a href="/" class="back-link">Go Home</a>
+  </div>
+</body>
+</html>

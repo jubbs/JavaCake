@@ -1,0 +1,90 @@
+<div class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">Welcome to JavaCake</h1>
+    <p class="hero-subtitle">
+      A CakePHP-inspired MVC framework for Node.js with convention over configuration
+    </p>
+
+    <div class="hero-buttons">
+      <% if (typeof session !== 'undefined' && AuthHelper.isLoggedIn(session)) { %>
+        <%- HtmlHelper.link('Go to Profile', '/users/profile', { class: 'btn btn-primary btn-lg' }) %>
+      <% } else { %>
+        <%- HtmlHelper.link('Get Started', '/users/register', { class: 'btn btn-primary btn-lg' }) %>
+        <%- HtmlHelper.link('Login', '/users/login', { class: 'btn btn-secondary btn-lg' }) %>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<div class="features-section">
+  <h2 class="section-title">Key Features</h2>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🎯</div>
+      <h3>Convention over Configuration</h3>
+      <p>Auto-routing based on URL patterns. No need to define routes for standard CRUD operations.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🗄️</div>
+      <h3>Active Record ORM</h3>
+      <p>Simple database operations with support for associations like hasMany, belongsTo, and more.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🔐</div>
+      <h3>Built-in Authentication</h3>
+      <p>User authentication with bcrypt password hashing and session management out of the box.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">📝</div>
+      <h3>EJS Templating</h3>
+      <p>Server-side rendering with layouts, partials, and view helpers for rapid development.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Query Builder</h3>
+      <p>Fluent interface for building complex SQL queries with a clean and readable syntax.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🛠️</div>
+      <h3>View Helpers</h3>
+      <p>Pre-built helpers for forms, HTML, and authentication to speed up your development.</p>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <h2>Quick Start Example</h2>
+  <pre class="code-block">
+<code>// Create a Model (src/models/Post.js)
+class Post extends Model {
+  static tableName = 'posts';
+  static associations() {
+    this.belongsTo('User');
+    this.hasMany('Comment');
+  }
+}
+
+// Create a Controller (src/controllers/PostsController.js)
+class PostsController extends AppController {
+  async index() {
+    const posts = await Post.findAll({ include: ['User'] });
+    this.set('posts', posts);
+  }
+}
+
+// Access at: http://localhost:3000/posts</code>
+  </pre>
+
+  <p class="text-center" style="margin-top: 2rem;">
+    Ready to build something amazing?
+    <% if (typeof session === 'undefined' || !AuthHelper.isLoggedIn(session)) { %>
+      <%- HtmlHelper.link('Get Started Now', '/users/register', { class: 'btn btn-primary' }) %>
+    <% } %>
+  </p>
+</div>
